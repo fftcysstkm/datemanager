@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Insert title here</title>
+</head>
+<body>
+	<h1>登録日一覧</h1>
+	<table>
+		<tr>
+			<th>日付id</th>
+			<th>日付名</th>
+			<th>基準日付</th>
+			<th>加減年</th>
+			<th>加減月</th>
+			<th>加減日</th>
+		</tr>
+		<tr th:each="businessdate:${dateList}">
+			<td th:text="${businessdate.id}">id</td>
+			<td th:text="${businessdate.date_name}">date_name</td>
+			<td th:text="${businessdate.base_date}">base_date</td>
+			<td th:text="${businessdate.diff_year}">diff_year</td>
+			<td th:text="${businessdate.diff_month}">diff_month</td>
+			<td th:text="${businessdate.diff_day}">diff_day</td>
+		</tr>
+	</table>
+	<form method="get" action="#" th:action="@{/businessdate}">
+		<input type="submit" value="戻る">
+	</form>
+</body>
+</html>

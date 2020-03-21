@@ -21,8 +21,8 @@ public class BusinessDateServiceImpl implements BusinessDateService {
 
 	@Override
 	public List<BusinessDate> getAll() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+
+		return dao.getAll();
 	}
 
 }

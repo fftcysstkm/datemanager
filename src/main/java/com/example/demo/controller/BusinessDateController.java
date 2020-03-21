@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.entity.BusinessDate;
 import com.example.demo.service.BusinessDateService;
 
 
@@ -32,10 +35,13 @@ public class BusinessDateController {
 	public String getHome() {
 		return "index";
 	}
+	
 	//一覧表示
 	@PostMapping("/datelist")
 	public String postIndex(Model model) {
-		return "datelist";
+		List<BusinessDate> dateList = businessDateService.getAll();
+		model.addAttribute("dateList",dateList);
+		return "list";
 	}
 
 }
