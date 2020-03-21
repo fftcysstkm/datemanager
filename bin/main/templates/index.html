@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}">Insert title here</title>
+</head>
+<body>
+	<h2>計算の基準となる日付を入力してください。</h2>
+	<form action="#" method="post">
+		<input type="text"><br>
+		<button type="submit">計算実行</button>
+		<button type="submit">新規登録</button>
+		<button type="submit">一覧表示</button>
+	</form>
+	<table>
+		<tr>
+			<th>No.</th>
+			<th>日付ID</th>
+			<th>日付名</th>
+			<th>計算結果</th>
+			<th>計算式（年月日）</th>
+			<th>編集</th>
+		</tr>
+	</table>
+</body>
+</html>
