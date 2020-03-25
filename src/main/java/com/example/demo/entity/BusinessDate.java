@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Entity
@@ -16,6 +18,8 @@ public class BusinessDate {
 	private int id;
 	private String date_name;
 	private String date_id;
+
+	@DateTimeFormat(pattern="yyyyMMdd")
 	private Date base_date;
 	private int diff_year;
 	private int diff_month;

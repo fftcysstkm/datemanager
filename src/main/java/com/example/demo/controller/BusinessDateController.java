@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,12 +33,38 @@ public class BusinessDateController {
 	@Autowired
 	private BusinessDateService businessDateService;
 
-	//あとで作る
+	private Map<String,Integer> radioYear;
+	private Map<String,Integer> radioMonth;
+	private Map<String,Integer> radioDay;
+
+	//初回画面ラジオボタン初期化用メソッド。Year,Month,Dayに応じたMapを返却
+	private Map<String, Integer> initRadioYMD(String YearMonthDay){
+		Map<String,Integer> radio = new LinkedHashMap<String, Integer>();
+		if (YearMonthDay == "Year") {
+			radio.put("計算なし",1);
+			radio.put("来年",0);
+		}else if(YearMonthDay == "Month"){
+			radio.put("計算なし", 1);
+			radio.put("来月", 0);
+		}else {
+			radio.put("計算なし",1);
+			radio.put("月末",0);
+		}
+		return radio;
+	}
+
+	//初回画面。ラジオボタンで計算式を選択する。
 	@GetMapping
-	public String getHome() {
+	public String getHome(@ModelAttribute BusinessDate businessDate, Model model) {
+		radioYear = initRadioYMD("Year");
+		radioMonth = initRadioYMD("Month");
+		radioDay = initRadioYMD("Day");
+		model.addAttribute("radioYear",radioYear);
+		model.addAttribute("radioMonth",radioMonth);
+		model.addAttribute("radioDay",radioDay);
 		return "index";
 	}
-	
+
 	//一覧表示
 	@PostMapping("/datelist")
 	public String postIndex(Model model) {

@@ -7,7 +7,20 @@
 <body>
 	<h2>計算の基準となる日付を入力してください。</h2>
 	<form action="#" method="post">
-		<input type="text"><br>
+		<input type="text" name="calc"><br>
+		<!-- Mapで加減年・月・日設定用のラジオボタンを出力。Controller内でMapは初期化されている。 -->
+		<div th:each="item:${radioYear}" style="display:inline-flex">
+			<input type="radio" name="radioYear" th:text="${item.key}" th:value="${item.value}"></input>
+		</div>
+		<br>
+		<div th:each="item:${radioMonth}" style="display:inline-flex">
+			<input type="radio" name="radioMonth" th:text="${item.key}" th:value="${item.value}"></input>
+		</div>
+		<br>
+		<div th:each="item:${radioDay}" style="display:inline-flex">
+			<input type="radio" name="radioDay" th:text="${item.key}" th:value="${item.value}"></input>
+		</div>
+		<br>
 		<button type="submit">計算実行</button>
 		<button type="submit">新規登録</button>
 	</form>
