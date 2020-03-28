@@ -8,38 +8,12 @@
 	<h2>計算の基準となる日付を入力してください。</h2>
 	<form action="#" method="post" th:action="@{/businessdate}" th:object="${dateForm}">
 		<input type="text" name="calc" th:field="*{base_date}"><br>
-
-		<!-- Mapで加減年・月・日設定用のラジオボタンを出力。Controller内でMapは初期化されている。 -->
-		<table>
-			<tr>
-				<th>年</th>
-				<td>
-					<div th:each="item:${radioYear}" style="display: inline-flex">
-						<input type="radio" name="radioYear" th:text="${item.key}" th:value="${item.value}" th:field="*{diff_year}"></input>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>月</th>
-				<td>
-					<div th:each="item:${radioMonth}" style="display: inline-flex">
-						<input type="radio" name="radioMonth" th:text="${item.key}" th:value="${item.value}" th:field="*{diff_month}"></input>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>日</th>
-				<td>
-					<div th:each="item:${radioDay}" style="display: inline-flex">
-						<input type="radio" name="radioDay" th:text="${item.key}" th:value="${item.value}" th:field="*{diff_day}"></input>
-					</div>
-				</td>
-			</tr>
-		</table>
+		<input type="checkbox" name="diff_year" value="1" th:checked="*{diff_year}">来年
+		<input type="checkbox" name="diff_month" value="1" th:checked="*{diff_month}">来月
+		<input type="checkbox" name="diff_day" value="1" th:checked="*{diff_day}">月末
 		<button type="submit">計算実行</button>
 		<button type="submit">新規登録</button>
 	</form>
-
 	<form method="post" action="#" th:action="@{/businessdate/datelist}">
 		<button type="submit">一覧表示</button>
 	</form>

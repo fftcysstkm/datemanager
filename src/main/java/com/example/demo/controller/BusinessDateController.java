@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,35 +34,9 @@ public class BusinessDateController {
 	@Autowired
 	private BusinessDateService businessDateService;
 
-	private Map<String,Integer> radioYear;
-	private Map<String,Integer> radioMonth;
-	private Map<String,Integer> radioDay;
-
-	//初回画面ラジオボタン初期化用メソッド。Year,Month,Dayに応じたMapを返却
-	private Map<String, Integer> initRadioYMD(String YearMonthDay){
-		Map<String,Integer> radio = new LinkedHashMap<String, Integer>();
-		if (YearMonthDay == "Year") {
-			radio.put("計算なし",0);
-			radio.put("来年",1);
-		}else if(YearMonthDay == "Month"){
-			radio.put("計算なし", 0);
-			radio.put("来月", 1);
-		}else {
-			radio.put("計算なし",0);
-			radio.put("月末",1);
-		}
-		return radio;
-	}
-
 	//初回画面。ラジオボタンで計算式を選択する。
 	@GetMapping
 	public String getHome(@ModelAttribute DateForm dateForm, Model model) {
-		radioYear = initRadioYMD("Year");
-		radioMonth = initRadioYMD("Month");
-		radioDay = initRadioYMD("Day");
-		model.addAttribute("radioYear",radioYear);
-		model.addAttribute("radioMonth",radioMonth);
-		model.addAttribute("radioDay",radioDay);
 		return "index";
 	}
 
@@ -77,7 +49,7 @@ public class BusinessDateController {
 		if(bindingResult.hasErrors()) {
 			return getHome(dateForm,model);
 		}
-		//System.out.println(dateForm);
+		System.out.println(dateForm);
 
 		return "index";
 	}
