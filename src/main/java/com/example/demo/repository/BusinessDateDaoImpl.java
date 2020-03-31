@@ -18,6 +18,34 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	//テーブルのデータ数取得
+	@Override
+	public int getCount() throws DataAccessException {
+		String sql = "SELECT COUNT(*) FROM datetable";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+		return count;
+	}
+
+	//テーブルの日付名(date_name)をカウントする。
+	@Override
+	public int countDateName(String dateName) throws DataAccessException {
+
+		String sql;
+
+		if (dateName ==  "来年") {
+			sql = "SELECT COUNT(date_name = '来年'OR NULL) FROM datetable";
+		}else if(dateName == "来月") {
+			sql = "SELECT COUNT(date_name = '来月'OR NULL) FROM datetable";
+		}else if(dateName == "月末") {
+			sql = "SELECT COUNT(date_name = '月末'OR NULL) FROM datetable";
+		}else {
+			sql = "";
+		}
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+
+		return count;
+	}
+
 	//一件登録
 	@Override
 	public void insertDate(BusinessDate businessDate)  throws DataAccessException{

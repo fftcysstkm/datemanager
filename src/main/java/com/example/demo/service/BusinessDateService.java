@@ -6,7 +6,14 @@ import com.example.demo.entity.BusinessDate;
 
 
 public interface BusinessDateService {
-	void insertSurvey(BusinessDate businessDate);
+
+	int getCount();
+
+	int countDateName(String dateName);
+
+	void insertDate(BusinessDate businessDate);
 
 	List<BusinessDate> getAll();
+
+
 }

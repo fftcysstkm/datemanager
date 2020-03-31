@@ -14,11 +14,25 @@ public class BusinessDateServiceImpl implements BusinessDateService {
 	@Autowired
 	private BusinessDateDao dao;
 
+	//テーブルの登録済データ数を取得する。
 	@Override
-	public void insertSurvey(BusinessDate businessDate) {
+	public int getCount() {
+		return dao.getCount();
+	}
+
+	//入力した日付名をカウントする。
+	@Override
+	public int countDateName(String dateName) {
+		return dao.countDateName(dateName);
+	}
+
+	//1件登録
+	@Override
+	public void insertDate(BusinessDate businessDate) {
 		dao.insertDate(businessDate);
 	}
 
+	//全件取得
 	@Override
 	public List<BusinessDate> getAll() {
 

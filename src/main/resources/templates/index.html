@@ -8,24 +8,35 @@
 	<h2>計算の基準となる日付を入力してください。</h2>
 	<form action="#" method="post" th:action="@{/businessdate}" th:object="${dateForm}">
 		<input type="text" name="calc" th:field="*{base_date}"><br>
-		<input type="checkbox" name="diff_year" value="1" th:checked="*{diff_year}">来年
-		<input type="checkbox" name="diff_month" value="1" th:checked="*{diff_month}">来月
-		<input type="checkbox" name="diff_day" value="1" th:checked="*{diff_day}">月末
+		<input type="checkbox"name="diff_year" value="1" th:checked="*{diff_year}">来年
+		<input type="checkbox"	name="diff_month" value="1" th:checked="*{diff_month}">来月
+		<input type="checkbox"name="diff_day" value="1" th:checked="*{diff_day}">月末
 		<button type="submit">計算実行</button>
 		<button type="submit">新規登録</button>
 	</form>
 	<form method="post" action="#" th:action="@{/businessdate/datelist}">
 		<button type="submit">一覧表示</button>
 	</form>
-	<table>
-		<tr>
-			<th>No.</th>
-			<th>日付ID</th>
-			<th>日付名</th>
-			<th>計算結果</th>
-			<th>計算式（年月日）</th>
-			<th>編集</th>
-		</tr>
-	</table>
+	<div>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>日付ID</th>
+				<th>日付名</th>
+				<th>計算結果</th>
+				<th>計算式</th>
+				<th>編集</th>
+			</tr>
+			<tr  th:each="dateform : ${dateForm}">
+				<td th:text="${dateform.id}">ID</td>
+				<td th:text="${dateform.date_id}">日付ID</td>
+				<td th:text="${dateform.date_name}">日付名</td>
+				<td th:text="${dateform.calc_date}">計算結果</td>
+				<td th:text="|${dateform.diff_year} / ${dateform.diff_month} / ${dateform.diff_day}|">計算式</td>
+				<td>※あとで追加</td>
+
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
