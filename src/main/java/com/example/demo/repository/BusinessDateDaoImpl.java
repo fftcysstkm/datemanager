@@ -49,7 +49,7 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 	//一件登録
 	@Override
 	public void insertDate(BusinessDate businessDate)  throws DataAccessException{
-		String sql = "INSERT INTO datetable (date_id, date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?, ? , ?)";
+		String sql = "INSERT INTO datetable (date_id, date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql,businessDate.getDate_id(),businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
 				businessDate.getDiff_month(),businessDate.getDiff_day());
 	}

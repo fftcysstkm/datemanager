@@ -11,8 +11,7 @@
 		<input type="checkbox"name="diff_year" value="1" th:checked="*{diff_year}">来年
 		<input type="checkbox"	name="diff_month" value="1" th:checked="*{diff_month}">来月
 		<input type="checkbox"name="diff_day" value="1" th:checked="*{diff_day}">月末
-		<button type="submit">計算実行</button>
-		<button type="submit">新規登録</button>
+		<button type="submit" name="calc">計算実行</button>
 	</form>
 	<form method="post" action="#" th:action="@{/businessdate/datelist}">
 		<button type="submit">一覧表示</button>
@@ -27,15 +26,16 @@
 				<th>計算式</th>
 				<th>編集</th>
 			</tr>
-			<tr  th:each="dateform : ${dateForm}">
+			<form action="#" method="post" th:action="@{/businessdate}" th:object="${dateForm}">
+			<tr th:each="dateform : ${dateForm}">
 				<td th:text="${dateform.id}">ID</td>
-				<td th:text="${dateform.date_id}">日付ID</td>
-				<td th:text="${dateform.date_name}">日付名</td>
+				<td th:text="${dateform.date_id}" th:value="*{date_id}">日付ID</td>
+				<td th:text="${dateform.date_name}" th:value="*{date_name}">日付名</td>
 				<td th:text="${dateform.calc_date}">計算結果</td>
 				<td th:text="|${dateform.diff_year} / ${dateform.diff_month} / ${dateform.diff_day}|">計算式</td>
-				<td>※あとで追加</td>
-
+				<td><input type="submit" name="insert" value="登録"></td>
 			</tr>
+			</form>
 		</table>
 	</div>
 </body>
