@@ -38,6 +38,7 @@ public class BusinessDateController {
 	@GetMapping("/businessdate")
 	public String getHome(@ModelAttribute DateForm dateForm, Model model) {
 		//System.out.println(businessDateService.getCount());
+
 		return "index";
 	}
 
@@ -77,6 +78,7 @@ public class BusinessDateController {
 			dateForm.setCalc_date(dateForm.getBase_date().with(TemporalAdjusters.lastDayOfMonth()));
 		}
 		model.addAttribute("dateForm", dateForm);
+		System.out.println(dateForm);
 		return "index";
 	}
 
@@ -87,6 +89,7 @@ public class BusinessDateController {
 
 		//バリデーションで間違いがあれば、getHomeメソッド呼び出し。
 		if(bindingResult.hasErrors()) {
+			System.out.println(bindingResult);
 			return getHome(dateForm,model);
 		}
 
@@ -99,8 +102,9 @@ public class BusinessDateController {
 		businessDate.setDiff_month(dateForm.getDiff_month());
 		businessDate.setDiff_day(dateForm.getDiff_day());
 
-//		businessDateService.insertDate(businessDate);
-		System.out.println(businessDate);
+		businessDateService.insertDate(businessDate);
+
+		//System.out.println(businessDate);
 		return "redirect:businessdate";
 	}
 
