@@ -95,7 +95,6 @@ public class BusinessDateController {
 
 		//Entityインスタンス作成。Formクラスの値をEntityクラスへ詰め込み。
 		BusinessDate businessDate = new BusinessDate();
-		businessDate.setDate_id(dateForm.getDate_id());
 		businessDate.setBase_date(java.sql.Date.valueOf(dateForm.getBase_date()));
 		businessDate.setDate_name(dateForm.getDate_name());
 		businessDate.setDiff_year(dateForm.getDiff_year());

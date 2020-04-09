@@ -15,8 +15,6 @@ public class BusinessDate {
 	@Id
 	private int id;
 	private String date_name;
-	private String date_id;
-
 	private Date base_date;
 	private int diff_year;
 	private int diff_month;

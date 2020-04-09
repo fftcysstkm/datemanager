@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS datetable;
 --datetableがなければ新しく作成
 CREATE TABLE IF NOT EXISTS datetable(
 id INT AUTO_INCREMENT,
-date_id VARCHAR(5) NOT NULL,
 date_name VARCHAR(5) NOT NULL,
 base_date DATE NOT NULL,
 diff_year INTEGER NOT NULL,

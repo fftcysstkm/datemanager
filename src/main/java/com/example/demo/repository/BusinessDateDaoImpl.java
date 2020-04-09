@@ -49,8 +49,8 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 	//一件登録
 	@Override
 	public void insertDate(BusinessDate businessDate)  throws DataAccessException{
-		String sql = "INSERT INTO datetable (date_id, date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql,businessDate.getDate_id(),businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
+		String sql = "INSERT INTO datetable (date_id, date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql,businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
 				businessDate.getDiff_month(),businessDate.getDiff_day());
 	}
 	//全件取得。Entityクラス(buisnessDate)のListを返す。
@@ -70,7 +70,6 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 
 			//Entityへ詰める。
 			businessDate.setId((int)map.get("id"));
-			businessDate.setDate_id((String)map.get("date_id"));
 			businessDate.setDate_name((String)map.get("date_name"));
 			businessDate.setBase_date((Date)map.get("base_date"));
 			businessDate.setDiff_year((int)map.get("diff_year"));
