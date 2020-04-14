@@ -19,6 +19,6 @@ public interface BusinessDateDao {
 	List<BusinessDate> getAll() throws DataAccessException;
 
 	//1件削除
-	void deleteDate(int id) throws DataAccessException;
+	void deleteOne(int id) throws DataAccessException;
 
 	}

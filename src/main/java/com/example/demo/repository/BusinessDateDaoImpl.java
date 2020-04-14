@@ -82,8 +82,11 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 		return dateList;
 	}
 
+	//データ一件DBから削除
 	@Override
-	public void deleteDate(int id) throws DataAccessException{
+	public void deleteOne(int id) throws DataAccessException{
+		String sql = "DELETE FROM datetable WHERE id = ?";
+		jdbcTemplate.update(sql,id);
 
 	}
 

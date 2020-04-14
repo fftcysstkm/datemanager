@@ -8,9 +8,9 @@
 	<h2>計算の基準となる日付を入力してください。</h2>
 	<form action="#" method="post" th:action="@{/businessdate}" th:object="${dateForm}">
 		<input type="text" name="calc" th:field="*{base_date}"><br>
-		<input type="checkbox"name="diff_year" value="1" th:checked="*{diff_year}">来年
-		<input type="checkbox"	name="diff_month" value="1" th:checked="*{diff_month}">来月
-		<input type="checkbox"name="diff_day" value="1" th:checked="*{diff_day}">月末
+		<input type="checkbox" name="diff_year" value="1" th:checked="*{diff_year}">来年
+		<input type="checkbox" name="diff_month" value="1" th:checked="*{diff_month}">来月
+		<input type="checkbox" name="diff_day" value="1" th:checked="*{diff_day}">月末
 		<button type="submit" name="calc">計算実行</button>
 	</form>
 	<form method="post" action="#" th:action="@{/businessdate/datelist}">
