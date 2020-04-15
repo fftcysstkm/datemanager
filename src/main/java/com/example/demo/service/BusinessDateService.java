@@ -15,5 +15,7 @@ public interface BusinessDateService {
 
 	List<BusinessDate> getAll();
 
+	BusinessDate selectOne(String date_id);
+
 
 }

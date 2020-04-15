@@ -32,6 +32,13 @@ public class BusinessDateServiceImpl implements BusinessDateService {
 		dao.insertDate(businessDate);
 	}
 
+	//1件取得
+	@Override
+	public BusinessDate selectOne(String date_id) {
+		dao.selectOne(date_id);
+		return null;
+	}
+
 	//全件取得
 	@Override
 	public List<BusinessDate> getAll() {

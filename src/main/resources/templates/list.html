@@ -16,6 +16,7 @@
 			<th>加減月</th>
 			<th>加減日</th>
 		</tr>
+		<!-- 詳細は動的URLを作成 -->
 		<tr th:each="date:${dateList}">
 			<td th:text="${date.id}">id</td>
 			<td th:text="${date.date_id}">date_id</td>

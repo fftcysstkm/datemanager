@@ -53,6 +53,26 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 		jdbcTemplate.update(sql,businessDate.getDate_id(),businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
 				businessDate.getDiff_month(),businessDate.getDiff_day());
 	}
+
+	//一件登録
+	@Override
+	public BusinessDate selectOne(String date_id) throws DataAccessException {
+		String sql = "SELECT * FROM datetable WHERE date_id = ?";
+		Map<String, Object>map = jdbcTemplate.queryForMap(sql, date_id);
+		//結果返却用のEntityクラスを用意
+		BusinessDate businessDate = new BusinessDate();
+		//Entityへ詰める。
+		businessDate.setId((int)map.get("id"));
+		businessDate.setDate_id((String)map.get("date_id"));
+		businessDate.setDate_name((String)map.get("date_name"));
+		businessDate.setBase_date((Date)map.get("base_date"));
+		businessDate.setDiff_year((int)map.get("diff_year"));
+		businessDate.setDiff_month((int)map.get("diff_month"));
+		businessDate.setDiff_day((int)map.get("diff_day"));
+
+		return businessDate;
+	}
+
 	//全件取得。Entityクラス(buisnessDate)のListを返す。
 	@Override
 	public List<BusinessDate> getAll()  throws DataAccessException{
