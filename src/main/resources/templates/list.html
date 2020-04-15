@@ -16,14 +16,15 @@
 			<th>加減月</th>
 			<th>加減日</th>
 		</tr>
-		<tr th:each="businessdate:${dateList}">
-			<td th:text="${businessdate.id}">id</td>
-			<td th:text="${businessdate.date_id}">date_id</td>
-			<td th:text="${businessdate.date_name}">date_name</td>
-			<td th:text="${businessdate.base_date}">base_date</td>
-			<td th:text="${businessdate.diff_year}">diff_year</td>
-			<td th:text="${businessdate.diff_month}">diff_month</td>
-			<td th:text="${businessdate.diff_day}">diff_day</td>
+		<tr th:each="date:${dateList}">
+			<td th:text="${date.id}">id</td>
+			<td th:text="${date.date_id}">date_id</td>
+			<td th:text="${date.date_name}">date_name</td>
+			<td th:text="${date.base_date}">base_date</td>
+			<td th:text="${date.diff_year}">diff_year</td>
+			<td th:text="${date.diff_month}">diff_month</td>
+			<td th:text="${date.diff_day}">diff_day</td>
+			<td><a th:href="@{'/dateDetail/' + ${date.date_id}}">詳細</a></td>
 		</tr>
 	</table>
 	<form method="post" action="/businessdate">
