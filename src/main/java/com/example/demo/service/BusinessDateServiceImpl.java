@@ -35,8 +35,7 @@ public class BusinessDateServiceImpl implements BusinessDateService {
 	//1件取得
 	@Override
 	public BusinessDate selectOne(String date_id) {
-		dao.selectOne(date_id);
-		return null;
+		return dao.selectOne(date_id);
 	}
 
 	//全件取得

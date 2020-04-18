@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -85,12 +87,6 @@ public class HomeController {
 		return "list";
 	}
 
-	//詳細画面表示
-	@GetMapping("businessdate/detail")
-	public String getDetail() {
-
-	return "dateDetail";
-	}
 
 	//計算シミュレーションメソッド。「計算実行」ボタンで実行される。
 	@PostMapping(params="calc")
@@ -101,7 +97,6 @@ public class HomeController {
 		if(bindingResult.hasErrors()) {
 			return getHome(dateForm, model);
 		}
-
 
 		//Formクラスにデータ設定
 		//idとbase_date
@@ -124,6 +119,32 @@ public class HomeController {
 		model.addAttribute("dateForm", dateForm);
 		System.out.println(dateForm);
 		return "index";
+	}
+
+
+
+	//詳細画面のGET用メソッド
+	//@PathVariableでURLの指定箇所からパラメータを取得する。
+	@GetMapping("/dateDetail/{date_id}")
+	public String getDateDetail(@ModelAttribute DateForm dateForm,
+			Model model,
+			@PathVariable("date_id")String date_id){
+
+
+			BusinessDate businessDate = businessDateService.selectOne(date_id);
+			System.out.println(businessDate);
+
+			dateForm.setId(businessDate.getId());
+			dateForm.setDate_id(businessDate.getDate_id());
+			dateForm.setBase_date(businessDate.getBase_date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			dateForm.setDate_name(businessDate.getDate_name());
+			dateForm.setDiff_year(businessDate.getDiff_year());
+			dateForm.setDiff_month(businessDate.getDiff_month());
+			dateForm.setDiff_day(businessDate.getDiff_day());
+			model.addAttribute("dateForm", dateForm);
+
+
+		return "dateDetail";
 	}
 
 }

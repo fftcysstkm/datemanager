@@ -2,8 +2,6 @@ package com.example.demo.form;
 
 import java.time.LocalDate;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Data
@@ -14,7 +12,7 @@ public class DateForm {
 	private String date_id;
 
 	//@NotBlank
-	@DateTimeFormat(pattern="yyyyMMdd")
+	//@DateTimeFormat(pattern="yyyyMMdd")
 	private LocalDate base_date;
 
 	//計算シミュレーション結果を格納する変数。
