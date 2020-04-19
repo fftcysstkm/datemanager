@@ -15,7 +15,9 @@ public interface BusinessDateService {
 
 	List<BusinessDate> getAll();
 
-	BusinessDate selectOne(String date_id);
+	BusinessDate selectOne(int id);
+
+	void deleteOne(int id);
 
 
 }

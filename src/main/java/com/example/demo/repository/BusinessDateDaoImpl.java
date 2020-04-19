@@ -50,21 +50,20 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 	//一件登録
 	@Override
 	public void insertDate(BusinessDate businessDate)  throws DataAccessException{
-		String sql = "INSERT INTO datetable (date_id, date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql,businessDate.getDate_id(),businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
+		String sql = "INSERT INTO datetable (date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql,businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
 				businessDate.getDiff_month(),businessDate.getDiff_day());
 	}
 
 	//一件登録
 	@Override
-	public BusinessDate selectOne(String date_id) throws DataAccessException {
-		String sql = "SELECT * FROM datetable WHERE date_id = ?";
-		Map<String, Object>map = jdbcTemplate.queryForMap(sql, date_id);
+	public BusinessDate selectOne(int id) throws DataAccessException {
+		String sql = "SELECT * FROM datetable WHERE id = ?";
+		Map<String, Object>map = jdbcTemplate.queryForMap(sql, id);
 		//結果返却用のEntityクラスを用意
 		BusinessDate businessDate = new BusinessDate();
 		//Entityへ詰める。
 		businessDate.setId((int)map.get("id"));
-		businessDate.setDate_id((String)map.get("date_id"));
 		businessDate.setDate_name((String)map.get("date_name"));
 		businessDate.setBase_date((Date)map.get("base_date"));
 		businessDate.setDiff_year((int)map.get("diff_year"));
@@ -91,7 +90,6 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 
 			//Entityへ詰める。
 			businessDate.setId((int)map.get("id"));
-			businessDate.setDate_id((String)map.get("date_id"));
 			businessDate.setDate_name((String)map.get("date_name"));
 			businessDate.setBase_date((Date)map.get("base_date"));
 			businessDate.setDiff_year((int)map.get("diff_year"));

@@ -9,7 +9,7 @@ public class DateForm {
 	//フォームにはないがシミュレーション表示用に残すフィールド。
 	private int id;
 	private String date_name;
-	private String date_id;
+
 
 	//@NotBlank
 	//@DateTimeFormat(pattern="yyyyMMdd")
