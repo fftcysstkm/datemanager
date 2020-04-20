@@ -1,6 +1,7 @@
 package com.example.demo.form;
 
-import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import lombok.Data;
 
@@ -11,12 +12,12 @@ public class DateForm {
 	private String date_name;
 
 
-	//@NotBlank
-	//@DateTimeFormat(pattern="yyyyMMdd")
-	private LocalDate base_date;
+	@NotBlank
+	@Pattern(regexp="(19[0-9]{2}|20[0-9]{2})([1-9]|1[0-2])([1-9]|[12][0-9]|3[01])")
+	private String base_date;
 
 	//計算シミュレーション結果を格納する変数。
-	private LocalDate calc_date;
+	private String calc_date;
 
 	private int diff_year;
 	private int diff_month;

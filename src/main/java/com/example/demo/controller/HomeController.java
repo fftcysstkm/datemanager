@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +53,7 @@ public class HomeController {
 	}
 
 
-
+	//１件登録
 	@PostMapping(params="insert")
 	public String postInsert(@ModelAttribute @Validated DateForm dateForm,
 			BindingResult bindingResult,
@@ -77,7 +80,7 @@ public class HomeController {
 	}
 
 	//一覧表示
-	@PostMapping("/datelist")
+	@PostMapping(value="/datelist",params="list")
 	public String postIndex(Model model) {
 		List<BusinessDate> dateList = businessDateService.getAll();
 		model.addAttribute("dateList",dateList);
@@ -92,10 +95,27 @@ public class HomeController {
 			Model model) {
 		//バリデーションで間違いがあれば、getHomeメソッド呼び出し。
 		if(bindingResult.hasErrors()) {
+			System.out.println(dateForm);
 			return getHome(dateForm, model);
 		}
 
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		//Formクラスにデータ設定
+		if(dateForm.getDiff_year()==1) {
+			dateForm.setDate_name("来年");
+			LocalDate calcLocalDate = LocalDate.parse(dateForm.getBase_date(),DateTimeFormatter.ofPattern("yyyyMMdd")).plusYears(1);
+			dateForm.setCalc_date(calcLocalDate.format(formatter));
+		}else if(dateForm.getDiff_month()==1){
+			dateForm.setDate_name("来月");
+			LocalDate calcLocalDate = LocalDate.parse(dateForm.getBase_date(),DateTimeFormatter.ofPattern("yyyyMMdd")).plusMonths(1);
+			dateForm.setCalc_date(calcLocalDate.format(formatter));
+		}else {
+			dateForm.setDate_name("月末");
+			LocalDate calcLocalDate = LocalDate.parse(dateForm.getBase_date(),DateTimeFormatter.ofPattern("yyyyMMdd")).with(TemporalAdjusters.lastDayOfMonth());
+			dateForm.setCalc_date(calcLocalDate.format(formatter));
+		}
+
 		//idとbase_date
 		dateForm.setId(businessDateService.getCount() + 1);
 
@@ -117,8 +137,10 @@ public class HomeController {
 			BusinessDate businessDate = businessDateService.selectOne(id);
 			System.out.println(businessDate);
 
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
 			dateForm.setId(businessDate.getId());
-			dateForm.setBase_date(businessDate.getBase_date().toLocalDate());
+			dateForm.setBase_date(businessDate.getBase_date().toLocalDate().format(formatter));
 			dateForm.setDate_name(businessDate.getDate_name());
 			dateForm.setDiff_year(businessDate.getDiff_year());
 			dateForm.setDiff_month(businessDate.getDiff_month());
@@ -130,6 +152,19 @@ public class HomeController {
 	}
 
 	//削除用のPOST用メソッド
+	@PostMapping(value="/datelist",params="delete")
+	public String postDeleteOne(DateForm dateForm,Model model) {
+		System.out.println("delete!");
+		//DBから1件削除
+		businessDateService.deleteOne(dateForm.getId());
+
+		//DBから一覧表示用のリスト取り出し。
+		List<BusinessDate> dateList = businessDateService.getAll();
+
+		model.addAttribute("dateList",dateList);
+		model.addAttribute("message","1件削除しました。");
+		return "list";
+	}
 
 
 }

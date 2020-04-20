@@ -14,7 +14,7 @@
 		<button type="submit" name="calc">計算実行</button>
 	</form>
 	<form method="post" action="#" th:action="@{/businessdate/datelist}">
-		<button type="submit">一覧表示</button>
+		<button type="submit" name="list">一覧表示</button>
 	</form>
 	<form method="post" action="#" th:action="@{/businessdate}">
 		<table>
@@ -30,14 +30,14 @@
 			<tr>
 				<td th:text="*{id}">日付ID</td>
 				<td th:text="*{date_name}" name="date_name">日付名</td>
-				<td th:text="${#temporals.format(dateForm.calc_date,'yyyyMMdd')}">計算結果</td>
+				<td th:text="*{calc_date}">計算結果</td>
 				<td th:text="|*{diff_year}/*{diff_month}/*{diff_day}|">計算式</td>
 				<td><input type="submit" name="insert" value="登録"></td>
 			</tr>
 			<!-- base_dateがvalidationに引っかかるのでformatする。 -->
 			<input type="hidden" name="id" th:value="*{id}">
 			<input type="hidden" name="date_name" th:value="*{date_name}">
-			<input type="hidden" name="base_date" th:value="${#temporals.format(dateForm.base_date,'yyyyMMdd')}">
+			<input type="hidden" name="base_date" th:value="*{calc_date}">
 			<input type="hidden" name="diff_year" th:value="*{diff_year}">
 			<input type="hidden" name="diff_month" th:value="*{diff_month}">
 			<input type="hidden" name="diff_day" th:value="*{diff_day}">

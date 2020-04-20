@@ -26,6 +26,7 @@
 			<td><a th:href="@{/businessdate/dateDetail/{id}(id=${date.id})}">詳細</a></td>
 		</tr>
 	</table>
+	<p th:text="${message}">crud後のメッセージ</p>
 	<form method="post" action="/businessdate">
 		<input type="submit" name="back" value="戻る">
 	</form>
