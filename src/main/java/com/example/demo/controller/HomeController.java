@@ -67,7 +67,8 @@ public class HomeController {
 
 		//Entityインスタンス作成。Formクラスの値をEntityクラスへ詰め込み。
 		BusinessDate businessDate = new BusinessDate();
-		businessDate.setBase_date(java.sql.Date.valueOf(dateForm.getBase_date()));
+
+		businessDate.setBase_date(dateForm.getBase_date());
 		businessDate.setDate_name(dateForm.getDate_name());
 		businessDate.setDiff_year(dateForm.getDiff_year());
 		businessDate.setDiff_month(dateForm.getDiff_month());
@@ -133,14 +134,10 @@ public class HomeController {
 			Model model,
 			@PathVariable("id")int id){
 
-
 			BusinessDate businessDate = businessDateService.selectOne(id);
 			System.out.println(businessDate);
-
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-
 			dateForm.setId(businessDate.getId());
-			dateForm.setBase_date(businessDate.getBase_date().toLocalDate().format(formatter));
+			dateForm.setBase_date(businessDate.getBase_date());
 			dateForm.setDate_name(businessDate.getDate_name());
 			dateForm.setDiff_year(businessDate.getDiff_year());
 			dateForm.setDiff_month(businessDate.getDiff_month());
@@ -150,6 +147,27 @@ public class HomeController {
 
 		return "dateDetail";
 	}
+
+	//１件編集用のPOSTメソッド
+	@PostMapping(value="/datelist",params="update")
+	public String postDateDetailUpdate(@ModelAttribute @Validated DateForm dateForm,Model model) {
+		//Entityインスタンス作成。Formクラスの値をEntityクラスへ詰め込み。
+		BusinessDate businessDate = new BusinessDate();
+		businessDate.setId(dateForm.getId());
+		businessDate.setDate_name(dateForm.getDate_name());
+		businessDate.setBase_date(dateForm.getBase_date());
+		businessDate.setDiff_year(dateForm.getDiff_year());
+		businessDate.setDiff_month(dateForm.getDiff_month());
+		businessDate.setDiff_day(dateForm.getDiff_day());
+		businessDateService.updateOne(businessDate);
+
+		//DBから1件編集後のリストを取り出し。
+		List<BusinessDate> dateList = businessDateService.getAll();
+		model.addAttribute("dateList",dateList);
+		model.addAttribute("message",("日付ID:" + businessDate.getId()) + "を編集しました。");
+		return "list";
+	}
+
 
 	//削除用のPOST用メソッド
 	@PostMapping(value="/datelist",params="delete")

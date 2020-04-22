@@ -42,7 +42,12 @@ public class BusinessDateServiceImpl implements BusinessDateService {
 	@Override
 	public void deleteOne(int id) {
 		dao.deleteOne(id);
+	}
 
+	//1件編集
+	@Override
+	public void updateOne(BusinessDate businessDate) {
+		dao.updateOne(businessDate);
 	}
 
 	//全件取得

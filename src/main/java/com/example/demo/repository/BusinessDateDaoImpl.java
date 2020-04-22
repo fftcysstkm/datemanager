@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +49,7 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 	//一件登録
 	@Override
 	public void insertDate(BusinessDate businessDate)  throws DataAccessException{
-		String sql = "INSERT INTO datetable (date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO datetable (date_name, base_date, diff_year, diff_month, diff_day) VALUES(?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql,businessDate.getDate_name(),businessDate.getBase_date(),businessDate.getDiff_year(),
 				businessDate.getDiff_month(),businessDate.getDiff_day());
 	}
@@ -65,12 +64,25 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 		//Entityへ詰める。
 		businessDate.setId((int)map.get("id"));
 		businessDate.setDate_name((String)map.get("date_name"));
-		businessDate.setBase_date((Date)map.get("base_date"));
+		businessDate.setBase_date((String)map.get("base_date"));
 		businessDate.setDiff_year((int)map.get("diff_year"));
 		businessDate.setDiff_month((int)map.get("diff_month"));
 		businessDate.setDiff_day((int)map.get("diff_day"));
 
 		return businessDate;
+	}
+
+	//登録済みデータを編集
+	@Override
+	public void updateOne(BusinessDate businessDate) throws DataAccessException {
+		String sql = "UPDATE datetable SET date_name= ?, base_date= ?, diff_year=?,  diff_month= ?, diff_day = ? WHERE id = ?";
+		jdbcTemplate.update(sql,
+				businessDate.getDate_name(),
+				businessDate.getBase_date(),
+				businessDate.getDiff_year(),
+				businessDate.getDiff_month(),
+				businessDate.getDiff_day(),
+				businessDate.getId());
 	}
 
 	//全件取得。Entityクラス(buisnessDate)のListを返す。
@@ -91,7 +103,7 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 			//Entityへ詰める。
 			businessDate.setId((int)map.get("id"));
 			businessDate.setDate_name((String)map.get("date_name"));
-			businessDate.setBase_date((Date)map.get("base_date"));
+			businessDate.setBase_date((String)map.get("base_date"));
 			businessDate.setDiff_year((int)map.get("diff_year"));
 			businessDate.setDiff_month((int)map.get("diff_month"));
 			businessDate.setDiff_day((int)map.get("diff_day"));

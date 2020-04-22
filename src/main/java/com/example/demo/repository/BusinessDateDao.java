@@ -18,6 +18,9 @@ public interface BusinessDateDao {
 	//1件登録
 	void insertDate(BusinessDate businessDate) throws DataAccessException;
 
+	//編集用
+	void updateOne(BusinessDate businessDate) throws DataAccessException;
+
 	//一覧取得
 	List<BusinessDate> getAll() throws DataAccessException;
 

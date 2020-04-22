@@ -2,8 +2,6 @@ package com.example.demo.entity;
 
 
 
-import java.sql.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,7 +16,7 @@ public class BusinessDate {
 	private int id;
 	private String date_name;
 
-	private Date base_date;
+	private String base_date;
 	private int diff_year;
 	private int diff_month;
 	private int diff_day;
