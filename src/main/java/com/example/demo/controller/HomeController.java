@@ -43,13 +43,13 @@ public class HomeController {
 	public String getHome(@ModelAttribute DateForm dateForm, Model model) {
 		//System.out.println(businessDateService.getCount());
 
-		return "index";
+		return "index_boot";
 	}
 
 	//一覧から「戻る」で初回画面に戻る。
 	@PostMapping(params="back")
 	public String postBack(@ModelAttribute DateForm dateForm,Model model) {
-		return "index";
+		return "index_boot";
 	}
 
 
@@ -85,7 +85,7 @@ public class HomeController {
 	public String postIndex(Model model) {
 		List<BusinessDate> dateList = businessDateService.getAll();
 		model.addAttribute("dateList",dateList);
-		return "list";
+		return "list_boot";
 	}
 
 
@@ -122,7 +122,7 @@ public class HomeController {
 
 		model.addAttribute("dateForm", dateForm);
 		System.out.println(dateForm);
-		return "index";
+		return "index_boot";
 	}
 
 
@@ -145,7 +145,7 @@ public class HomeController {
 			model.addAttribute("dateForm", dateForm);
 
 
-		return "dateDetail";
+		return "dateDetail_boot";
 	}
 
 	//１件編集用のPOSTメソッド
