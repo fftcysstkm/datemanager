@@ -88,6 +88,13 @@ public class HomeController {
 		return "list_boot";
 	}
 
+	@GetMapping("/datelist")
+	public String getIndex(Model model) {
+		List<BusinessDate> dateList = businessDateService.getAll();
+		model.addAttribute("dateList",dateList);
+		return "list_boot";
+	}
+
 
 	//計算シミュレーションメソッド。「計算実行」ボタンで実行される。
 	@PostMapping(params="calc")
@@ -165,7 +172,7 @@ public class HomeController {
 		List<BusinessDate> dateList = businessDateService.getAll();
 		model.addAttribute("dateList",dateList);
 		model.addAttribute("message",("日付ID:" + businessDate.getId()) + "を編集しました。");
-		return "list";
+		return "list_boot";
 	}
 
 
@@ -181,7 +188,7 @@ public class HomeController {
 
 		model.addAttribute("dateList",dateList);
 		model.addAttribute("message","1件削除しました。");
-		return "list";
+		return "list_boot";
 	}
 
 
