@@ -143,7 +143,7 @@ public class HomeController {
 			@PathVariable("id")int id){
 
 			BusinessDate businessDate = businessDateService.selectOne(id);
-			System.out.println(businessDate);
+
 			dateForm.setId(businessDate.getId());
 			dateForm.setBase_date(businessDate.getBase_date());
 			dateForm.setDate_name(businessDate.getDate_name());

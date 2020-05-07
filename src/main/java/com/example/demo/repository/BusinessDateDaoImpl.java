@@ -54,7 +54,7 @@ public class BusinessDateDaoImpl implements BusinessDateDao {
 				businessDate.getDiff_month(),businessDate.getDiff_day());
 	}
 
-	//一件登録
+	//一件取得
 	@Override
 	public BusinessDate selectOne(int id) throws DataAccessException {
 		String sql = "SELECT * FROM datetable WHERE id = ?";
