@@ -107,6 +107,7 @@ public class HomeController {
 			return getHome(dateForm, model);
 		}
 
+		System.out.println(dateForm);
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 		//Formクラスにデータ設定
