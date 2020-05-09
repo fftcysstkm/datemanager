@@ -5,6 +5,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
+//DB関連のエラー発生時のログ
 @Aspect
 @Component
 public class ErrorAspect {
