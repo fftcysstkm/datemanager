@@ -81,12 +81,12 @@ public class HomeController {
 	}
 
 	//一覧表示
-	@PostMapping(value="/datelist",params="list")
-	public String postIndex(Model model) {
-		List<BusinessDate> dateList = businessDateService.getAll();
-		model.addAttribute("dateList",dateList);
-		return "list_boot";
-	}
+//	@PostMapping(value="/datelist",params="list")
+//	public String postIndex(Model model) {
+//		List<BusinessDate> dateList = businessDateService.getAll();
+//		model.addAttribute("dateList",dateList);
+//		return "list_boot";
+//	}
 
 	@GetMapping("/datelist")
 	public String getIndex(Model model) {
