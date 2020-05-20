@@ -26,6 +26,7 @@ import com.example.demo.service.BusinessDateService;
 @AutoConfigureMockMvc
 public class HomeControllerTest {
 
+	//依存しているサービスクラスをMock化
 	@MockBean
 	BusinessDateService mockDateService;
 
@@ -56,7 +57,7 @@ public class HomeControllerTest {
 	}
 
 	@Test
-	public void 計算結果がindex_bootに表示される()throws Exception{
+	public void 計算シミュレーション結果が表示される()throws Exception{
 
 		//Mock化したBisinessDateServiceのgetCount()の戻り値を999に設定
 		when(mockDateService.getCount()).thenReturn(999);
@@ -64,7 +65,7 @@ public class HomeControllerTest {
 		//テスト用のFormクラスをインスタンス化
 		DateForm dateForm = createDateForm(1, "19990101", "テスト日付", 1, 0, 0);
 
-		//postリクエスト、計算結果IDが999、計算結果が20000101を検証
+		//postリクエスト、テスト用の計算結果IDが999、計算結果が20000101を検証
 		mockMvc.perform(post("/businessdate")
 				.param("calc", "calc")
 				.flashAttr("dateForm", dateForm))
@@ -75,6 +76,101 @@ public class HomeControllerTest {
 		.andExpect(model().attribute("dateForm",dateForm));
 
 	}
+
+	@Test
+	public void 計算シミュレーション時に不適切な入力でエラーが表示される() throws Exception{
+
+		//テスト用のFormクラスをインスタンス化（base_dateに不適切な入力値を設定）
+		DateForm dateForm = createDateForm(1, "Invalid input", "テスト日付", 1, 0, 0);
+
+		//postリクエスト。バリデーションエラーの発生、エラーメッセージが適切か検証
+		mockMvc.perform(post("/businessdate")
+				.param("calc", "calc")
+				.flashAttr("dateForm", dateForm))
+		.andExpect(status().isOk())
+		.andExpect(view().name("index_boot"))
+		.andExpect(model().hasErrors())
+		.andExpect(content().string(containsString("yyyyMMdd形式で入力してください。")))
+		.andExpect(model().attribute("dateForm",dateForm));
+
+	}
+
+	@Test
+	public void 戻るボタンでホーム画面が表示される()throws Exception{
+		mockMvc.perform(post("/businessdate")
+				.param("back", "back"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("index_boot"));
+	}
+
+	@Test
+	public void データベースへ登録完了しホーム画面へ戻る() throws Exception{
+
+		//テスト用のFormクラスをインスタンス化
+		DateForm dateForm = createDateForm(1, "19990101", "テスト日付", 1, 0, 0);
+		//テスト用のEntityクラスをインスタンス化（idはAutoincrementのためゼロで良い）
+		BusinessDate businessDate = createBusinessDate(0, "19990101", "テスト日付", 1, 0, 0);
+
+		mockMvc.perform(post("/businessdate")
+				.param("insert", "insert")
+				.flashAttr("dateForm", dateForm))
+		.andExpect(status().is(302))
+		.andExpect(model().hasNoErrors())
+		.andExpect(redirectedUrl("businessdate"));
+
+		//BusinessDateServiceクラスのinsertDateメソッドが1回呼び出されたか検証
+		verify(mockDateService,times(1)).insertDate(businessDate);
+
+	}
+
+	@Test
+	public void 詳細画面でURLパス指定した登録データが表示される()throws Exception{
+
+		//テスト用のFormクラスをインスタンス化
+		BusinessDate businessDate = createBusinessDate(1, "19990101", "テスト日付", 1, 0, 0);
+		//id=1のデータの取得を再現。
+		int testId = 1;
+		//Mock化したBisinessDateServiceのselectOne()の戻り値を設定
+		when(mockDateService.selectOne(testId)).thenReturn(businessDate);
+
+		mockMvc.perform(get("/businessdate/dateDetail/" + testId))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("テスト日付")))
+		.andExpect(view().name("dateDetail_boot"));
+
+		//BusinessDateServiceクラスのselectOneメソッドが1回呼び出されたか検証
+		verify(mockDateService,times(1)).selectOne(testId);
+
+	}
+
+	@Test
+	public void 編集ボタンで編集完了メッセージとともに一覧画面が表示される()throws Exception {
+		//テスト用のFormクラスをインスタンス化
+		DateForm dateForm = createDateForm(1, "19990101", "テスト日付", 1, 0, 0);
+		//テスト用のEntityクラスをインスタンス化
+		BusinessDate businessDate = createBusinessDate(1, "19990101", "テスト日付", 1, 0, 0);
+		//テスト用のEntityクラスのリストをインスタンス化
+		List<BusinessDate> dateList = new ArrayList<BusinessDate>();
+		dateList.add(businessDate);
+
+		//Mock化したBisinessDateServiceのupdateOne()が実行されることを設定
+		doNothing().when(mockDateService).updateOne(businessDate);
+		//Mock化したBisinessDateServiceのgetAll()の戻り値を設定
+		when(mockDateService.getAll()).thenReturn(dateList);
+
+		mockMvc.perform(post("/businessdate/datelist")
+				.param("update", "update")
+				.flashAttr("dateForm", dateForm))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("編集しました")))
+		.andExpect(view().name("list_boot"));
+
+		//BusinessDateServiceクラスのupdataOne、getAllメソッドが各1回呼び出されたか検証
+		verify(mockDateService,times(1)).updateOne(businessDate);
+		verify(mockDateService,times(1)).getAll();
+
+	}
+
 
 	//テスト用のEntityクラスの作成メソッド
 	public BusinessDate createBusinessDate(int id,String base_date,String date_name,int diff_year,int diff_month,int diff_day) {
