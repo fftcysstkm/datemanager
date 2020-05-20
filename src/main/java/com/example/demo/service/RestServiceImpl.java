@@ -17,11 +17,12 @@ public class RestServiceImpl implements RestService {
 	//@Qualifier("BusinessDateDaoImpl")
 	BusinessDateDao dao;
 
-	//1件登録
-	@Override
-	public void insertDate(BusinessDate businessDate) {
-		// TODO 自動生成されたメソッド・スタブ
-	}
+//	1件登録
+//	@Override
+//	public void insertDate(BusinessDate businessDate) {
+//		// TODO 自動生成されたメソッド・スタブ
+//	}
+
 	//全件取得
 	@Override
 	public List<BusinessDate> getAll() {

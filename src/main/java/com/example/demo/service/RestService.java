@@ -12,7 +12,7 @@ public interface RestService {
 	//int countDateName(String dateName);
 
 	//1件登録
-	void insertDate(BusinessDate businessDate);
+//	void insertDate(BusinessDate businessDate);
 
 	//全件取得
 	List<BusinessDate> getAll();

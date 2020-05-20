@@ -49,7 +49,6 @@ public class HomeControllerTest {
 		dateList.add(createBusinessDate(1, "19990101", "テスト日付", 1, 0, 0));
 		when(mockDateService.getAll()).thenReturn(dateList);
 
-
 		mockMvc.perform(get("/businessdate/datelist"))
 			.andExpect(status().isOk())
 			.andExpect(view().name("list_boot"))
@@ -167,6 +166,34 @@ public class HomeControllerTest {
 
 		//BusinessDateServiceクラスのupdataOne、getAllメソッドが各1回呼び出されたか検証
 		verify(mockDateService,times(1)).updateOne(businessDate);
+		verify(mockDateService,times(1)).getAll();
+
+	}
+
+	@Test
+	public void 削除ボタンで削除完了メッセージとともに一覧画面が表示される()throws Exception{
+
+		//テスト用のFormクラスをインスタンス化
+		DateForm dateForm = createDateForm(1, "19990101", "テスト日付", 1, 0, 0);
+		//テスト用のEntityクラスをインスタンス化
+		BusinessDate businessDate = createBusinessDate(1, "19990101", "テスト日付", 1, 0, 0);
+		//テスト用のEntityクラスのリストをインスタンス化
+		List<BusinessDate> dateList = new ArrayList<BusinessDate>();
+		dateList.add(businessDate);
+
+		//Mock化したBisinessDateServiceのdeleteOne()が実行されることを設定
+		doNothing().when(mockDateService).deleteOne(businessDate.getId());
+		//Mock化したBisinessDateServiceのgetAll()の戻り値を設定
+		when(mockDateService.getAll()).thenReturn(dateList);
+
+		mockMvc.perform(post("/businessdate/datelist")
+				.param("delete", "delete").flashAttr("dateForm", dateForm))
+		.andExpect(status().isOk())
+		.andExpect(content().string(containsString("削除しました")))
+		.andExpect(view().name("list_boot"));
+
+		//BusinessDateServiceクラスのdelieteOneとgetAllメソッドが各1回呼び出されたか検証
+		verify(mockDateService,times(1)).deleteOne(dateForm.getId());
 		verify(mockDateService,times(1)).getAll();
 
 	}
