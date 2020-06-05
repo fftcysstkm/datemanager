@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.2.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'war'
 }
 
 group = 'com.example'
@@ -38,8 +39,13 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('com.h2database:h2')
 	testCompile 'com.codeborne:selenide:5.11.1'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+war {
+    archiveName = 'datemaneger.war'
 }
