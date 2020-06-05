@@ -46,6 +46,6 @@ test {
 	useJUnitPlatform()
 }
 
-war {
-    archiveName = 'datemaneger.war'
+bootWar {
+    archiveName = 'datemanager.war'
 }
