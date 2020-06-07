@@ -47,5 +47,5 @@ test {
 }
 
 bootWar {
-    archiveName = 'datemanager.war'
+    archiveName = 'ROOT.war'
 }
