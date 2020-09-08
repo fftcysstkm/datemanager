@@ -7,7 +7,7 @@ plugins {
 
 war {
     enabled = true
-    baseName = "sample"
+    archiveName = 'sample.war'
 }
 
 
