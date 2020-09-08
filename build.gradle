@@ -50,5 +50,6 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+	exclude 'com/example/demo/ViewTest.class'
 }
 
