@@ -2,10 +2,11 @@ package com.example.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
-@TestPropertySource(locations = "/test.properties")
+//@TestPropertySource(locations = "/test.properties")
+@ActiveProfiles("test")
 class SpringDatemanagerApplicationTests {
 
 	@Test
