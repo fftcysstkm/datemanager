@@ -1,16 +1,16 @@
-package com.example.demo;
+//package com.example.demo;
+//
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.ActiveProfiles;
+//
+//@SpringBootTest
+////@TestPropertySource(locations = "/test.properties")
+//@ActiveProfiles("test")
+//class SpringDatemanagerApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-
-@SpringBootTest
-//@TestPropertySource(locations = "/test.properties")
-@ActiveProfiles("test")
-class SpringDatemanagerApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//}
