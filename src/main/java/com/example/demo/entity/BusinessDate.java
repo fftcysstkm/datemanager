@@ -2,15 +2,14 @@ package com.example.demo.entity;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 
-@Entity
+//@Entity
 @Data
-@Table(name="datetable")
+//@Table(name="datetable")
 public class BusinessDate {
 	@Id
 	private int id;
