@@ -20,7 +20,7 @@ import com.example.demo.repository.BusinessDateDao;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@TestPropertySource(locations = "classpath:application.properties")
+@TestPropertySource(locations = "/test.properties")
 @Transactional
 public class BusinessDateDaoImplTest {
 
