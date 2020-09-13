@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.example.demo.entity.BusinessDate;
@@ -21,8 +21,8 @@ import com.example.demo.repository.BusinessDateDao;
 import com.example.demo.service.BusinessDateService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-//@TestPropertySource(locations = "/test.properties")
+//@SpringBootTest
+@TestPropertySource(locations = "/test.properties")
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 public class BusinessDateServiceImplTest {

@@ -9,9 +9,9 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +19,8 @@ import com.example.demo.entity.BusinessDate;
 import com.example.demo.repository.BusinessDateDao;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-//@TestPropertySource(locations = "/test.properties")
+//@SpringBootTest
+@TestPropertySource(locations = "/test.properties")
 @ActiveProfiles("test")
 @Transactional
 public class BusinessDateDaoImplTest {
