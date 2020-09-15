@@ -7,7 +7,7 @@ plugins {
 
 war {
     enabled = true
-    archiveName = 'sample.war'
+    archiveFileName = 'sample.war'
 }
 
 
@@ -44,7 +44,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('com.h2database:h2')
-	testCompile 'com.codeborne:selenide:5.11.1'
+	testImplementation 'com.codeborne:selenide:5.11.1'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
